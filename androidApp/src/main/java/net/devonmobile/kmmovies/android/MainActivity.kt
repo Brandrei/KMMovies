@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -16,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import net.devonmobile.kmmovies.Greeting
+import net.devonmobile.kmmovies.TestApi
 
 @Composable
 fun MyApplicationTheme(
@@ -58,6 +59,10 @@ fun MyApplicationTheme(
 }
 
 class MainActivity : ComponentActivity() {
+
+    private val api by lazy { TestApi() }
+    private val textToDisplay = mutableStateOf("Loading")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -66,10 +71,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(Greeting().greeting())
+                    Greeting(textToDisplay.value)
                 }
             }
         }
+        getApiResponse()
+    }
+
+    fun getApiResponse() {
+        api.getResponse(
+            success = {
+                textToDisplay.value = it
+        },
+            failure = { println(it) }
+        )
     }
 }
 
