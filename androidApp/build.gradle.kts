@@ -3,6 +3,8 @@ plugins {
     kotlin("android")
 }
 
+val apiKey: String = com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY")
+
 android {
     namespace = "net.devonmobile.kmmovies.android"
     compileSdk = 32
@@ -12,6 +14,8 @@ android {
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "TMDB_KEY", apiKey)
     }
     buildFeatures {
         compose = true

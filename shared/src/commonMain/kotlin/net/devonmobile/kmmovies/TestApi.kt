@@ -6,7 +6,7 @@ import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class TestApi {
+class TestApi(private val apiKey: String) {
     private val apiUrl = "https://api.coindesk.com/v1/bpi/currentprice.json"
 
     fun getResponse(
@@ -15,7 +15,7 @@ class TestApi {
             try {
                 val url = apiUrl
                 val json = HttpClient().get(url)
-                success(json.bodyAsText())
+                success(json.bodyAsText() + "\nKey:$apiKey")
             } catch (ex: Exception) {
                 failure(ex)
             }

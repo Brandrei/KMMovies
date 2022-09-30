@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization") version "1.7.10"
@@ -29,6 +31,7 @@ kotlin {
                     "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
             }
+
         }
         val commonTest by getting {
             dependencies {

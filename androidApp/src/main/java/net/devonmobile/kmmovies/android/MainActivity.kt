@@ -60,7 +60,7 @@ fun MyApplicationTheme(
 
 class MainActivity : ComponentActivity() {
 
-    private val api by lazy { TestApi() }
+    private val api by lazy { TestApi(BuildConfig.TMDB_KEY) }
     private val textToDisplay = mutableStateOf("Loading")
 
     override fun onCreate(savedInstanceState: Bundle?) {
